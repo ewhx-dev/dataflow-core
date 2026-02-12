@@ -18,9 +18,8 @@ public final class ConditionalStage<I, O> implements Stage<I, O> {
         return new ConditionalStage<>(condition, delegate, fallback);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> ConditionalStage<T, T> passThrough(Predicate<T> condition, Stage<T, T> delegate) {
-        return new ConditionalStage<>(condition, delegate, (Stage<T, T>) (Stage<Object, Object>) input -> input);
+        return new ConditionalStage<>(condition, delegate, input -> input);
     }
 
     @Override

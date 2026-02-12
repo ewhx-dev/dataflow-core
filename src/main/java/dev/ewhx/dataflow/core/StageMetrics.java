@@ -17,7 +17,7 @@ public final class StageMetrics {
         this.success = success;
     }
 
-    public static <I, O> StageMetrics measure(String stageName, Stage<I, O> stage, I input) throws StageException {
+    public static <I, O> StageMetrics measure(String stageName, Stage<I, O> stage, I input) {
         Instant start = Instant.now();
         try {
             stage.process(input);
@@ -25,7 +25,7 @@ public final class StageMetrics {
             return new StageMetrics(stageName, start, end, true);
         } catch (StageException e) {
             Instant end = Instant.now();
-            throw e;
+            return new StageMetrics(stageName, start, end, false);
         }
     }
 
